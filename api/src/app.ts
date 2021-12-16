@@ -1,10 +1,19 @@
-import express from 'express';
+'use strict'
 
-const app   = express();
-const port  = process.env.PORT || 3000;
+import express from 'express';
+import logger from 'node-color-log';
+
+const app               = express();
+const port              = process.env.PORT || 3000;
+const args: string[]    = process.argv.slice(2);
 
 app.get('/', (req, res) => res.send('Botcode explorer API is running smoothly!'));
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: API is running at http://localhost:${port}`);
-});
+if(args && args.length !== 0) {
+    app.listen(port, () => {
+        const directoryString: string = args.length === 1 ? 'directory' : 'directories';
+        logger.color('green').bold().log(`⚡️[server]: Tracking changes to ${args.length} ${directoryString}. API is running at http://localhost:${port}`);
+    });
+}else {
+    logger.color('red').bold().log('You must specify at least one directory path!');
+}
