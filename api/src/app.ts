@@ -1,25 +1,42 @@
 'use strict'
 
-import express  from 'express';
-import logger   from 'node-color-log';
-import utils    from './utils/utils';
+import express          from 'express';
+import logger           from 'node-color-log';
 
-const app               = express();
-const port              = process.env.PORT || 3000;
-const args: string[]    = process.argv.slice(2);
+import utils            from './utils/utils';
+import watcher          from './logic/watcher';
+import sockets          from './logic/sockets';
+
+const app: express.Application  = express();
+const port: string | number     = process.env.PORT || 3000;
+const args: string[]            = process.argv.slice(2);
+
+const INVALID_PATH_FORMAT: string = 'invalid path format';
+const PATH_DOES_NOT_EXIST: string = 'path does not exist';
+const PATH_IS_NOT_A_DIRECTORY: string = 'path is not a directory';
 
 app.get('/', (req, res) => res.send('Botcode explorer API is running smoothly!'));
 
 if(args && args.length !== 0) {
-    const invalidPaths: string[] = utils._validateIfPathsAreValidInArray(args);
-    if(invalidPaths.length === 0) {
+    const invalidPaths: {[key: string]: string} = utils._validateIfPathsAreValidInArray(args);
+    if(Object.keys(invalidPaths).length === 0) {
         app.listen(port, () => {
             const directoryString: string = args.length === 1 ? 'directory' : 'directories';
+
+            watcher._initDirectories(args);
+            sockets._initIO(app);
+
             logger.color('green').bold().log(`⚡️[server]: Tracking changes to ${args.length} ${directoryString}. API is running at http://localhost:${port}`);
         });
     }else {
-        for (const path of invalidPaths) {
-            logger.color('red').bold().log(`${path} is not a valid path`);
+        for (const path in invalidPaths) {
+            if(invalidPaths[path] === INVALID_PATH_FORMAT) {
+                logger.color('red').bold().log(`[INVALID_PATH_FORMAT]: ${path} is not a valid path`);
+            }else if (invalidPaths[path] === PATH_DOES_NOT_EXIST) {
+                logger.color('red').bold().log(`[PATH_DOES_NOT_EXIST]: ${path} does not exist`);
+            }else if (invalidPaths[path] === PATH_IS_NOT_A_DIRECTORY) {
+                logger.color('red').bold().log(`[PATH_IS_NOT_A_DIRECTORY]: ${path} must be a directory`);
+            }
         }
     }
 }else {
