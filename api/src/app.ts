@@ -1,6 +1,7 @@
 'use strict'
 
 import express          from 'express';
+import http             from 'http';
 import logger           from 'node-color-log';
 
 import utils            from './utils/utils';
@@ -8,6 +9,7 @@ import watcher          from './logic/watcher';
 import sockets          from './logic/sockets';
 
 const app: express.Application  = express();
+const server: http.Server       = http.createServer(app);
 const port: string | number     = process.env.PORT || 3000;
 const args: string[]            = process.argv.slice(2);
 
@@ -20,11 +22,11 @@ app.get('/', (req, res) => res.send('Botcode explorer API is running smoothly!')
 if(args && args.length !== 0) {
     const invalidPaths: {[key: string]: string} = utils._validateIfPathsAreValidInArray(args);
     if(Object.keys(invalidPaths).length === 0) {
-        app.listen(port, () => {
+        server.listen(port, () => {
             const directoryString: string = args.length === 1 ? 'directory' : 'directories';
 
             watcher._initDirectories(args);
-            sockets._initIO(app);
+            sockets._initIO(server);
 
             logger.color('green').bold().log(`⚡️[server]: Tracking changes to ${args.length} ${directoryString}. API is running at http://localhost:${port}`);
         });
