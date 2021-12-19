@@ -54,6 +54,7 @@ Botcode has been developed with:
 ## ADR (Architecture Decision Records)
 - [ADR-001: Why a separate API/front end instead of Next.js integrated server?](./adr/adr-001.md)
 - [ADR-002: Why Socket.IO and not WebSocket?](./adr/adr-002.md)
+- [ADR-003: Should we support files or only directories as arguments?](./adr/adr-003.md)
 
 
 Built with ❤️ in Quebec City

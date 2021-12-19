@@ -4,7 +4,7 @@ const store     = require('../dist/data/store').default;
 describe('watcher - directories', () => {
     it('initDirectories - validate directories', () => {    
         const args = ['./__tests__/data'];
-        watcher._initDirectories(args);
+        watcher._initDirectories(args, false);
 
         expect(store.trees.length).toBe(1);
 

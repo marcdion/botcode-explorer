@@ -61,6 +61,8 @@
                     margin-left: 19px;
     
                     display: none;
+
+                    padding-top: 4px;
                 }
     
                 &.open {
@@ -71,7 +73,7 @@
             }
     
             .file {
-                padding: 2px 0;
+                padding: 4px 0;
                 margin-left: 15px;
             }
         }

@@ -45,12 +45,14 @@ const watcher = {
      * Takes in paths and creates Object (trees) from them. Sets the values in data store
      * @param {string[]} paths 
      */
-    _initDirectories: function(paths: string[]) {
+    _initDirectories: function(paths: string[], watch: boolean = true) {
         for(let index = 0; index < paths.length; index++) {
             const tree = createTree(paths[index], {attributes: ['type', 'extension']});
             store.trees.push(tree);
 
-            watchChanges(paths[index]);
+            if(watch) {
+                watchChanges(paths[index]);
+            }
         }
     }
 }
