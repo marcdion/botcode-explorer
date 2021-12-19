@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import Head from 'next/head'
-import SideBar from './sidebar/sidebar'
+import Sidebar from './sidebar/Sidebar'
 
 interface Props {
     children: Object
@@ -15,7 +15,7 @@ const Layout: NextPage<Props> = ({children}) => {
             </Head>
 
             <div className='container'>
-                <SideBar />
+                <Sidebar />
                 <main className='main'>{children}</main>
             </div>
         </>

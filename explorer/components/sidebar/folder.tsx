@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { FaAngleRight } from 'react-icons/fa';
 import classNames from "classnames";
 
-import DirectoryItem from './directoryItem';
+import DirectoryItem from './DirectoryItem';
 
 type Props = {
     folder: {

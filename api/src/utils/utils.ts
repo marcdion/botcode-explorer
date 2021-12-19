@@ -1,10 +1,7 @@
 'use strict'
 
 import fs from 'fs';
-
-const INVALID_PATH_FORMAT: string = 'invalid path format';
-const PATH_DOES_NOT_EXIST: string = 'path does not exist';
-const PATH_IS_NOT_A_DIRECTORY: string = 'path is not a directory';
+import errors from './errors'
 
 const PATH_VALIDATION_REGEX: RegExp = /^(.\/|..\/|~\/|78).*$/;
 
@@ -17,10 +14,20 @@ const validateIfPathIsValid = (path: string): boolean => {
     return PATH_VALIDATION_REGEX.test(path);
 }
 
+/**
+ * Validates if a path exists on the file system
+ * @param path 
+ * @returns {boolean}
+ */
 const validateIfPathExists = (path: string): boolean => {
     return fs.existsSync(path);
 }
 
+/**
+ * Validates if a path is a directory and not a file
+ * @param path 
+ * @returns {boolean}
+ */
 const validateIfPathIsADirectory = (path: string): boolean => {
     return fs.lstatSync(path).isDirectory() 
 }
@@ -36,19 +43,19 @@ const utils = {
         directories.forEach((path: string) => {
             const isPathValid: boolean = validateIfPathIsValid(path);
             if(!isPathValid) {
-                invalidPaths[path] = INVALID_PATH_FORMAT;
+                invalidPaths[path] = errors.INVALID_PATH_FORMAT;
                 return;
             }
 
             const pathExists: boolean = validateIfPathExists(path);
             if(!pathExists) {
-                invalidPaths[path] = PATH_DOES_NOT_EXIST;
+                invalidPaths[path] = errors.PATH_DOES_NOT_EXIST;
                 return;
             }
 
             const pathIsADirectory: boolean = validateIfPathIsADirectory(path);
             if(!pathIsADirectory) {
-                invalidPaths[path] = PATH_IS_NOT_A_DIRECTORY;
+                invalidPaths[path] = errors.PATH_IS_NOT_A_DIRECTORY;
                 return;
             }
         });

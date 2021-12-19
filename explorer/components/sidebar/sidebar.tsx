@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { useState, useEffect } from 'react';
-import DirectoryItem from './directoryItem';
+import DirectoryItem from './DirectoryItem';
 
 const { io } = require('socket.io-client');
 const ENDPOINT = 'http://localhost:3000';

@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 
-import Folder from './folder';
-import File from './file';
+import Folder from './Folder';
+import File from './File';
 
 type Props = {
     directory: {

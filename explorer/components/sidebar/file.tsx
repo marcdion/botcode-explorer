@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import { FaAngleRight } from 'react-icons/fa';
 
 type Props = {
     file: {
