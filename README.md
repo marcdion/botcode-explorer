@@ -6,10 +6,25 @@ Botcode is a vs-code like explorer built with Node JS, NextJS and Socket.IO. It 
 
 ## Getting started
 **Run locally:**
-To run locally, ...
 
-**Test:** 
-To test,...
+To run locally, first make sure you have node.js and npm installed. Then:
+
+**API**
+1. go to the /api directory
+2. run npm install
+3. run **npm run start** *your directories*
+
+**Front end**
+1. go to the /explorer directory
+2. run npm install
+3. run **npm run dev**
+
+visit http://localhost:3001 to see the explorer
+
+
+**Run tests:** 
+1. go to the /api directory
+2. run npm run test
 
 ## Improvements
 Here are the things that I would like to improve in the future:
