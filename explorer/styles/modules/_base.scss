@@ -1,3 +1,13 @@
+html, #__next, body, .container, main {
+    height: 100%;
+    width: 100%;
+}
+
 body {
     background-color: $night-owl;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
 }

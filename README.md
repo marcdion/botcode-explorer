@@ -26,7 +26,8 @@ Botcode has been developed with:
 - [SASS](https://www.npmjs.com/package/sass)
 
 ## ADR (Architecture Decision Records)
-- [ADR-001: Why a separate API/front end instead of Next.js integrated server](./adr/adr-001.md)
+- [ADR-001: Why a separate API/front end instead of Next.js integrated server?](./adr/adr-001.md)
 - [ADR-002: Why Socket.IO and not WebSocket?](./adr/adr-002.md)
+
 
 Built with ❤️ in Quebec City
