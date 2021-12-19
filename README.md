@@ -26,6 +26,8 @@ visit http://localhost:3001 to see the explorer
 1. go to the /api directory
 2. run npm run test
 
+*This was tested on Mac and Windows, with Node.js version v12.19.0 and npm version 6.14.8*
+
 ## Improvements
 Here are the things that I would like to improve in the future:
 
