@@ -29,9 +29,7 @@ const Folder: NextPage<Props> = ({folder}) => {
 
             <ul>
                 {folder.children.map((child: any) => {
-                    return (
-                        <DirectoryItem key={child.name} directory={child} />
-                    )
+                    return <DirectoryItem key={child.name} directory={child} />
                 })}
             </ul>
         </div>

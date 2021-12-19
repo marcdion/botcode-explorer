@@ -10,62 +10,71 @@
         border-bottom: 1px solid $border-color;
     }
 
-    .directory {
-        padding: 0 16px;
+    .directories {
+        overflow-y: scroll;
+        height: calc(100% - 40px);
 
-        &:first-child {
-            padding-top: 6px;
-        }
-
-        .folder {
-            padding: 2px 0;
-
-            .folder-name {
+        .directory {
+            padding: 0 16px;
+    
+            &:first-child {
+                padding-top: 6px;
+            }
+    
+            .folder {
                 padding: 2px 0;
-
-                display: inline-block;
-                width: 100%;
-
-                &:hover {
-                    cursor: pointer;
-                }
-
-                .icon, .name {
-                    vertical-align: middle;
-                    display: inline-block;
-
-                    height: 15px;
-                }
-
-                .icon {
-                    svg{
-                        &.open {
-                            transform: rotate(90deg);
+    
+                .folder-name {
+                    padding: 2px 0;
+    
+                    display: flex;
+                    flex-direction: row;
+                    
+                    width: 100%;
+    
+                    &:hover {
+                        cursor: pointer;
+                    }
+    
+                    .icon, .name {
+                        vertical-align: middle;
+                        display: inline-block;
+    
+                        height: 15px;
+                    }
+    
+                    .icon {
+                        svg{
+                            &.open {
+                                transform: rotate(90deg);
+                            }
                         }
                     }
+    
+                    .name {
+                        white-space: nowrap;
+                        margin-bottom: 2px;
+                    }
                 }
-
-                .name {
-                    margin-bottom: 2px;
+    
+                ul {
+                    margin-left: 19px;
+    
+                    display: none;
+                }
+    
+                &.open {
+                    > ul {
+                        display: block;
+                    }
                 }
             }
-
-            ul {
-                margin-left: 19px;
-
-                display: none;
+    
+            .file {
+                padding: 2px 0;
+                margin-left: 15px;
             }
-
-            &.open {
-                > ul {
-                    display: block;
-                }
-            }
-        }
-
-        .file {
-            padding: 2px 0;
-            margin-left: 15px;
         }
     }
+    
 }

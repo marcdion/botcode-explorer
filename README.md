@@ -35,6 +35,8 @@ Here are the things that I would like to improve in the future:
 
 - In the directories.spec.js file, we test out the creation of the trees from the paths passed to the application. To do this, I created some dummy data in the __tests__/data folder. This is not robust as someone could change or add to this without knowing and it would break the tests. I would have used something like [node-temp](https://github.com/bruce/node-temp) to create temporary data, run the tests and then delete them. That way, we do not need to commit some dummy data and the tests are more robusts.
 
+- I spent around a day working on an algorithm that would remove/update files and folder from the tree object when it was changed on the host. I wanted to avoid regenerating the entire tree everytime a change was made. It made the code really messy and honestly, it did not work in most cases and I doubt it was any more efficient since we had to do a lot of search throught a lot of nested objects and arrays. I am aware that at a very large scale, it may not make sens but considering the time constraint and the complexity, I decided to simply regenerate the tree every time. It makes the code a lot more clean and simple and makes sure it is properly updated every time.
+
 ## Technologies used
 Botcode has been developed with:
 

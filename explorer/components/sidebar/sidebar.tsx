@@ -8,15 +8,18 @@ const ENDPOINT = 'http://localhost:3000';
 const SideBar: NextPage = () => {
     const [response, setResponse] = useState([]);
     useEffect(() => {
-        const socket = io(ENDPOINT);
-        socket.on('update', (data: any) => {
-            setResponse(data);
-        });
+        try {
+            const socket = io(ENDPOINT);
+            socket.on('update', (data: any) => {
+                setResponse(data);
+            });
 
-        return () => {
-            socket.disconnect()
+            return () => {
+                socket.disconnect()
+            }
+        } catch(err) {
+            console.log(err);
         }
-    
       }, []);
 
     return (
@@ -26,8 +29,8 @@ const SideBar: NextPage = () => {
             <div className='directories'>
                 {response.map((directory: any) => {
                     return (
-                        <div className='directory'>
-                            <DirectoryItem key={directory.name} directory={directory} />
+                        <div className='directory' key={directory.name}>
+                            <DirectoryItem directory={directory} />
                         </div>
                     )
                 })}
