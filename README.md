@@ -11,6 +11,13 @@ To run locally, ...
 **Test:** 
 To test,...
 
+## Improvements
+Here are the things that I would like to improve in the future:
+
+- For the sake of simplicity, the code base was put into one repository, even though is consists of two independent applications. In a real world scenario, the FE and BE would be in two separate repositories. If you want to read why I decided to split the application in two parts, see [ADR-001](./adr/adr-001.md)
+
+- In the directories.spec.js file, we test out the creation of the trees from the paths passed to the application. To do this, I created some dummy data in the __tests__/data folder. This is not robust as someone could change or add to this without knowing and it would break the tests. I would have used something like [node-temp](https://github.com/bruce/node-temp) to create temporary data, run the tests and then delete them. That way, we do not need to commit some dummy data and the tests are more robusts.
+
 ## Technologies used
 Botcode has been developed with:
 

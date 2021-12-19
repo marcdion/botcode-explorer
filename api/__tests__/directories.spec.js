@@ -50,7 +50,5 @@ describe('watcher - directories', () => {
         expect(tree.children[1].children[1].name).toBe('test.json');
         expect(tree.children[1].children[1].type).toBe('file');
         expect(tree.children[1].children[1].extension).toBe('.json');
-
-
     });
 })
