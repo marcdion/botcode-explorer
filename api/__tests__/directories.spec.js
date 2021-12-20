@@ -42,16 +42,11 @@ describe('watcher - directories', () => {
         expect(tree.children[1].path).toBe(isWindows ? '__tests__\\testdata\\otherDir' : '__tests__/testdata/otherDir');
         expect(tree.children[1].name).toBe('otherDir');
         expect(tree.children[1].type).toBe('directory');
-        expect(tree.children[1].children.length).toBe(2);
+        expect(tree.children[1].children.length).toBe(1);
 
-        expect(tree.children[1].children[0].path).toBe(isWindows ? '__tests__\\testdata\\otherDir\\subDir' : '__tests__/testdata/otherDir/subDir');
-        expect(tree.children[1].children[0].name).toBe('subDir');
-        expect(tree.children[1].children[0].type).toBe('directory');
-        expect(tree.children[1].children[0].children.length).toBe(0);
-
-        expect(tree.children[1].children[1].path).toBe(isWindows ? '__tests__\\testdata\\otherDir\\test.json' : '__tests__/testdata/otherDir/test.json');
-        expect(tree.children[1].children[1].name).toBe('test.json');
-        expect(tree.children[1].children[1].type).toBe('file');
-        expect(tree.children[1].children[1].extension).toBe('.json');
+        expect(tree.children[1].children[0].path).toBe(isWindows ? '__tests__\\testdata\\otherDir\\test.json' : '__tests__/testdata/otherDir/test.json');
+        expect(tree.children[1].children[0].name).toBe('test.json');
+        expect(tree.children[1].children[0].type).toBe('file');
+        expect(tree.children[1].children[0].extension).toBe('.json');
     });
 })
