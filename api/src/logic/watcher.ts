@@ -23,7 +23,6 @@ const watchChanges = (path: string) => {
         .on('unlinkDir', function(path) { findTree(path, 'unlinkDir') });
 };
 
-
 /**
  * Finds tree where change occured
  * @param {string} path
