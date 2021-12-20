@@ -1,0 +1,35 @@
+html, #__next, body, .container, main {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-color: $night-owl;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+* {
+    &::-webkit-scrollbar {
+        width: 12px;
+    }
+      
+    &::-webkit-scrollbar-track {
+        background: $night-owl;
+    }
+      
+    &::-webkit-scrollbar-thumb {
+        background-color: $scroll-bar;
+        border-radius: 20px;      
+        border: 3px solid $night-owl;
+    }
+
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: $scroll-bar $night-owl;
+    }
+}
+

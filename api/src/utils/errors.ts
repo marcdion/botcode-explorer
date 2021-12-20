@@ -1,0 +1,9 @@
+'use strict'
+
+const errors = {
+    INVALID_PATH_FORMAT: 'INVALID_PATH_FORMAT',
+    PATH_DOES_NOT_EXIST: 'PATH_DOES_NOT_EXIST',
+    PATH_IS_NOT_A_DIRECTORY: 'PATH_IS_NOT_A_DIRECTORY'
+}
+
+export default errors;
