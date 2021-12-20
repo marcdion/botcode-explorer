@@ -36,12 +36,7 @@ const findTree = (path: string, action: string) => {
 
         if(action === 'add' || action === 'addDir') {
             path = normalizeFileName(path);
-            if(path.includes(tree.path)) {
-                index = i;
-            }
-        }else if(action === 'unlinkDir') {
-            path = normalizeFileName(path);
-            if(tree === null || path === tree.path ) {
+            if(tree !== null && path.includes(tree.path)) {
                 index = i;
             }
         }else {
@@ -54,34 +49,17 @@ const findTree = (path: string, action: string) => {
     }
     
     if(index !== -1) {
-        if(action === 'unlinkDir') {
-            removeTree(index);
-        }else {
-            regenerateTree(index);
-        }
+        regenerateTree(index);
     }
 }
 
 /**
- * 
- * @param path Normalized folder path when it starts with ./ in the file system as directory-tree seems to strip it
+ * Normalized folder path when it starts with ./ in the file system as directory-tree seems to strip it
+ * @param path 
  * @returns {string} path
  */
 const normalizeFileName = (path: string): string => {
     return (path.charAt(0) !== '.' && path.charAt(0) !== '/') ? `./${path}` : path;
-}
-
-/**
- * Removes tree when the folder passed to args is deleted from the host
- * @param index 
- */
-const removeTree = (index: number) => {
-    store.trees.splice(index, 1);
-    
-    const io = sockets._getIO();
-    if(io) {
-        io.emit('update', store.trees);
-    }
 }
 
 /**

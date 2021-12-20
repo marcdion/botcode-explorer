@@ -12,7 +12,6 @@ type Props = {
 const Folder: NextPage<Props> = ({folder}) => {
     const [active, setActive] = useState(false);
     const changeActiveState = () => {
-        console.log('changed state started');
         setActive(!active);
     }
 
