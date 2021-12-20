@@ -3,6 +3,10 @@
 
     border-right: 1px solid $border-color;
 
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+    }
+
     .header {
         padding: 12px 16px;
 
