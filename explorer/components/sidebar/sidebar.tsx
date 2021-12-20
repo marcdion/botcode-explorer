@@ -27,7 +27,7 @@ const SideBar: NextPage = () => {
             <p className='header'>Botcode</p>
         
             <div className='directories'>
-                {response.map((directory: any) => {
+                {response.map((directory: DirectoryItem) => {
                     return (
                         <div className='directory' key={directory.name}>
                             <DirectoryItem directory={directory} />

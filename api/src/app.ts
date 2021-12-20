@@ -8,7 +8,7 @@ import utils            from './utils/utils';
 import watcher          from './logic/watcher';
 import sockets          from './logic/sockets';
 
-import errors from './utils/errors'
+import errors           from './utils/errors'
 
 const app: express.Application  = express();
 const server: http.Server       = http.createServer(app);

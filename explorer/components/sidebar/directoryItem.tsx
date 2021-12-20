@@ -4,13 +4,7 @@ import Folder from './Folder';
 import File from './File';
 
 type Props = {
-    directory: {
-        children: [],
-        name: string,
-        path: string,
-        type: string,
-        extension: string
-    }
+    directory: DirectoryItem
 }
 
 const DirectoryItem: NextPage<Props> = ({directory}) => {

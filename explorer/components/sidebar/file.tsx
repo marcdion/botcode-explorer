@@ -1,12 +1,7 @@
 import { NextPage } from 'next';
 
 type Props = {
-    file: {
-        name: string,
-        path: string,
-        type: string,
-        extension: string
-    }
+    file: DirectoryItem
 }
 
 const File: NextPage<Props> = ({file}) => {

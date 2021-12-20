@@ -6,17 +6,13 @@ import classNames from "classnames";
 import DirectoryItem from './DirectoryItem';
 
 type Props = {
-    folder: {
-        children: [],
-        name: string,
-        path: string,
-        type: string
-    }
+    folder: DirectoryItem
 }
 
 const Folder: NextPage<Props> = ({folder}) => {
     const [active, setActive] = useState(false);
     const changeActiveState = () => {
+        console.log('changed state started');
         setActive(!active);
     }
 
@@ -27,8 +23,8 @@ const Folder: NextPage<Props> = ({folder}) => {
                 <span className='name'>{folder.name}</span>
             </span>
 
-            <ul>
-                {folder.children.map((child: any) => {
+            <ul className={classNames({empty: folder.children.length === 0})}>
+                {folder.children.map((child: DirectoryItem) => {
                     return <DirectoryItem key={child.name} directory={child} />
                 })}
             </ul>

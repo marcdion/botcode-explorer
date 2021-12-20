@@ -3,17 +3,6 @@
 import fs from 'fs';
 import errors from './errors'
 
-const PATH_VALIDATION_REGEX: RegExp = /^(.\/|..\/|~\/|78).*$/;
-
-/**
- * Validates if string is valid path
- * @param {string} path 
- * @returns {boolean} 
- */
-const validateIfPathIsValid = (path: string): boolean => {
-    return PATH_VALIDATION_REGEX.test(path);
-}
-
 /**
  * Validates if a path exists on the file system
  * @param path 
@@ -41,12 +30,6 @@ const utils = {
     _validateIfPathsAreValidInArray: function(directories: string[]): {[key: string]: string} {
         const invalidPaths: {[key: string]: string} = {};
         directories.forEach((path: string) => {
-            const isPathValid: boolean = validateIfPathIsValid(path);
-            if(!isPathValid) {
-                invalidPaths[path] = errors.INVALID_PATH_FORMAT;
-                return;
-            }
-
             const pathExists: boolean = validateIfPathExists(path);
             if(!pathExists) {
                 invalidPaths[path] = errors.PATH_DOES_NOT_EXIST;

@@ -7,7 +7,7 @@ import sockets      from './sockets';
 
 /**
  * Watches to changes inside top level directory
- * @param {string }path 
+ * @param {string} path 
  */
 const watchChanges = (path: string) => {
     const watcher = chokidar.watch(path, {
@@ -23,15 +23,22 @@ const watchChanges = (path: string) => {
         .on('unlinkDir', function(path) { regenerateTree(path) });
 };
 
-const regenerateTree = (path: string) => {
-    let parentPath = path.substring(0, path.indexOf('/', path.indexOf('/') + 1));
-    if(parentPath.charAt(0) !== '.') {
-        parentPath = `./${parentPath}`;
-    }
 
-    const index = store.trees.findIndex(dir => dir.path === parentPath);
+/**
+ * Regenerates tree when an element in it changes
+ * @param {string} path
+ */
+const regenerateTree = (path: string) => {
+    let index = -1;
+    for(let i: number = 0; i < store.trees.length; i++) {
+        const tree = store.trees[i];
+        if(pathExistsInTree(tree, 'path', path)) {
+            index = i;
+        }
+    }
+    
     if(index !== -1) {
-        store.trees[index] = createTree(parentPath, {attributes: ['type', 'extension']});
+        store.trees[index] = createTree(store.trees[index].path, {attributes: ['type', 'extension']});
         
         const io = sockets._getIO();
         if(io) {
@@ -39,6 +46,32 @@ const regenerateTree = (path: string) => {
         }
     }
 }
+
+/**
+ * Check if path exists in tree
+ * @param {Object} obj
+ * @param {string} key
+ * @param {string} value
+ * @returns {Object} returns the node if it exists
+ */
+const pathExistsInTree = (obj: any, key: string, value: string): any => {
+    if (obj[key] === value) {
+      return obj;
+    } else {
+      let keys = Object.keys(obj);
+  
+      for (let i = 0, len = keys.length; i < len; i++) {
+        let k = keys[i];
+  
+        if (obj[k] && typeof obj[k] == 'object') {
+          let found = pathExistsInTree(obj[k], key, value);
+          if (found) {
+            return found;
+          }
+        }
+      }
+    }
+  }
 
 const watcher = {
     /**
