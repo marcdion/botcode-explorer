@@ -6,12 +6,17 @@ const { io } = require('socket.io-client');
 const ENDPOINT = 'http://localhost:3000';
 
 const SideBar: NextPage = () => {
+    function notEmpty<TValue>(value: TValue | null | undefined): value is TValue {
+        return value !== null && value !== undefined;
+    }
+
     const [response, setResponse] = useState([]);
     useEffect(() => {
         try {
             const socket = io(ENDPOINT);
             socket.on('update', (data: any) => {
-                setResponse(data);
+                const filteredArray = data.filter(notEmpty);
+                setResponse(filteredArray);
             });
 
             return () => {
