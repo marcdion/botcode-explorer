@@ -13,15 +13,14 @@ To run locally, first make sure you have node.js and npm installed. Make sure yo
 1. go to the /api directory
 2. run npm install
 3. run **npm run start** *your directories*
-4. example: npm run start ../adr ./__tests__
+4. example: npm run start ../adr ./src
 
 **Front end**
 1. go to the /explorer directory
 2. run npm install
 3. run **npm run dev**
 
-visit http://localhost:3001 to see the explorer
-
+Visit http://localhost:3001 to see the explorer in action.
 
 **Run tests:** 
 1. go to the /api directory
