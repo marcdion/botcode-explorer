@@ -2,7 +2,7 @@ const os        = require('os');
 const watcher   = require('../dist/logic/watcher').default;
 const store     = require('../dist/data/store').default;
 
-const isWindows = os.platform().includes('win');
+const isWindows = os.platform().includes('win32') || os.platform().includes('win64');
 
 describe('watcher - directories', () => {
     it('initDirectories - validate directories', () => {    
