@@ -16,34 +16,57 @@ const watchChanges = (path: string) => {
     });
 
     watcher
-        .on('add', function(path) { regenerateTree(path) })
-        .on('change', function(path) { regenerateTree(path) })
-        .on('unlink', function(path) { regenerateTree(path) })
-        .on('addDir', function(path) { regenerateTree(path) })
-        .on('unlinkDir', function(path) { regenerateTree(path) });
+        .on('add', function(path) { findTree(path, 'add') })
+        .on('change', function(path) { findTree(path, 'change') })
+        .on('unlink', function(path) { findTree(path, 'unlink') })
+        .on('addDir', function(path) { findTree(path, 'addDir') })
+        .on('unlinkDir', function(path) { findTree(path, 'unlinkDir') });
 };
 
 
 /**
- * Regenerates tree when an element in it changes
+ * Finds tree where change occured
  * @param {string} path
  */
-const regenerateTree = (path: string) => {
+const findTree = (path: string, action: string) => {
     let index = -1;
-    for(let i: number = 0; i < store.trees.length; i++) {
+    let i = 0;
+
+    while (i < store.trees.length && index === -1) {
         const tree = store.trees[i];
-        if(pathExistsInTree(tree, 'path', path)) {
-            index = i;
+
+        if(action === 'add' || action === 'addDir') {
+            if(path.charAt(0) !== '.' && path.charAt(0) !== '/') {
+                path = `./${path}`;
+            }
+                
+            if(path.includes(tree.path)) {
+                index = i;
+            }
+        }else {
+            if(pathExistsInTree(tree, 'path', path)) {
+                index = i;
+            }
         }
+
+        i++;
     }
     
     if(index !== -1) {
-        store.trees[index] = createTree(store.trees[index].path, {attributes: ['type', 'extension']});
-        
-        const io = sockets._getIO();
-        if(io) {
-            io.emit('update', store.trees);
-        }
+        regenerateTree(index);        
+    }
+}
+
+/**
+ * Regenerates tree when an element in it changes
+ * @param index 
+ */
+const regenerateTree = (index: number) => {
+    store.trees[index] = createTree(store.trees[index].path, {attributes: ['type', 'extension']});
+
+    const io = sockets._getIO();
+    if(io) {
+        io.emit('update', store.trees);
     }
 }
 
