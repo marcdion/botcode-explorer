@@ -1,9 +1,12 @@
 'use strict'
 
+import os           from 'os';
 import chokidar     from 'chokidar';
 import createTree   from 'directory-tree';
 import store        from '../data/store';
 import sockets      from './sockets';
+
+const isWindows = os.platform().includes('win32') || os.platform().includes('win64');
 
 /**
  * Watches to changes inside top level directory
@@ -36,7 +39,8 @@ const findTree = (path: string, action: string) => {
 
         if(action === 'add' || action === 'addDir') {
             path = normalizeFileName(path);
-            if(tree !== null && path.includes(tree.path)) {
+
+            if(tree !== null && convertPathForWindows(path).includes(convertPathForWindows(tree.path))) {
                 index = i;
             }
         }else {
@@ -51,6 +55,20 @@ const findTree = (path: string, action: string) => {
     if(index !== -1) {
         regenerateTree(index);
     }
+}
+
+/**
+ * Converts path from \ to / for windows
+ * @param path 
+ * @returns {string} path
+ */
+const convertPathForWindows = (path: string): string => {
+    const searchRegExp: RegExp = /\\/g;
+    if(isWindows) {
+        return path.replace(searchRegExp, '/');
+    }
+
+    return path;
 }
 
 /**
